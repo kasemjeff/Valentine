@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Valentine 💘</title>
+  <style>
+    body{
+      margin:0; min-height:100vh; display:grid; place-items:center;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #ffe1ec, #fff);
+      overflow:hidden;
+    }
+    .card{
+      width:min(520px, 92vw);
+      background: rgba(255,255,255,.75);
+      border:1px solid rgba(255,0,90,.15);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 60px rgba(255,0,90,.12);
+      text-align:center;
+      position:relative;
+    }
+    h1{ margin:0 0 10px; font-size: 28px; }
+    p{ margin:10px 0; line-height:1.65; }
+    .pill{
+      display:inline-block; padding:10px 14px; border-radius:999px;
+      background:#ff3b7a; color:#fff; font-weight:700; border:none;
+      cursor:pointer; margin-top:14px;
+      box-shadow: 0 10px 25px rgba(255,59,122,.25);
+    }
+    .pill:active{ transform: translateY(1px); }
+    .small{ font-size:13px; opacity:.75; margin-top:16px; }
+    .hearts span{
+      position:fixed; bottom:-20px; left:var(--x);
+      font-size: var(--s);
+      animation: floatUp var(--d) linear infinite;
+      filter: drop-shadow(0 6px 10px rgba(255,0,90,.15));
+      opacity:.9;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) rotate(0deg); opacity:0; }
+      10%{ opacity:.9; }
+      100%{ transform: translateY(-110vh) rotate(360deg); opacity:0; }
+    }
+    .secret{
+      display:none; margin-top:14px;
+      padding:14px 14px; border-radius:16px;
+      background: rgba(255,59,122,.08);
+      border:1px dashed rgba(255,59,122,.25);
+    }
+    .photo{
+      width:120px; height:120px; border-radius:999px;
+      margin: 0 auto 14px;
+      background: linear-gradient(135deg, #ffd1e1, #fff);
+      display:grid; place-items:center;
+      border: 1px solid rgba(255,59,122,.18);
+      font-size:40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <main class="card">
+    <div class="photo">💗</div>
+    <h1>Happy Valentine, ✅(ชื่อแฟน)</h1>
+    <p>
+      ✅(ข้อความสั้นๆ เช่น “ขอบคุณที่อยู่ด้วยกันเสมอ วันนี้เลยทำเว็บเล็กๆ ให้”)
+      <br/>รักเธอนะ 🥰
+    </p>
+
+    <button class="pill" id="btn">กดรับเซอร์ไพรส์ 💌</button>
+
+    <div class="secret" id="secret">
+      <p style="margin:0">
+        ✅(ใส่ข้อความยาวขึ้น เช่น “ปีนี้ขอให้เราได้ไปเดทด้วยกันบ่อยๆ…”)<br/>
+        <b>Will you be my Valentine? 💘</b>
+      </p>
+      <p class="small">คำใบ้: ถ่ายสกรีนแล้วส่งกลับมาด้วยนะ 😆</p>
+    </div>
+
+    <p class="small">Made with ❤️ by ✅(ชื่อเรา)</p>
+  </main>
+
+  <script>
+    const hearts = document.querySelector(".hearts");
+    function spawnHeart(){
+      const s = document.createElement("span");
+      const heart = ["💗","💖","💘","💕","💞","🌹"][Math.floor(Math.random()*6)];
+      s.textContent = heart;
+      s.style.setProperty("--x", Math.random()*100 + "vw");
+      s.style.setProperty("--s", (16 + Math.random()*24) + "px");
+      s.style.setProperty("--d", (4 + Math.random()*6) + "s");
+      hearts.appendChild(s);
+      setTimeout(()=>s.remove(), 11000);
+    }
+    setInterval(spawnHeart, 280);
+
+    document.getElementById("btn").addEventListener("click", ()=>{
+      document.getElementById("secret").style.display = "block";
+      for(let i=0;i<20;i++) setTimeout(spawnHeart, i*60);
+      document.getElementById("btn").textContent = "อ่านแล้วใช่มั้ย 😳💘";
+    });
+  </script>
+</body>
+</html>
