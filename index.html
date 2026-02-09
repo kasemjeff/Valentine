@@ -4,328 +4,291 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>For You 💗</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg1:#fff7fb;
-      --bg2:#ffe8f1;
-      --ink:#1f2430;
-      --muted: rgba(31,36,48,.68);
-      --card: rgba(255,255,255,.72);
-      --stroke: rgba(255,75,134,.14);
-      --pink:#ff4b86;
-      --pink2:#ff8fb2;
-      --shadow: 0 24px 70px rgba(255,0,90,.10);
-      --radius: 26px;
+      /* สีหลัก - ปรับให้ละมุนขึ้น */
+      --bg-grad-1: #ff9a9e;
+      --bg-grad-2: #fecfef;
+      --primary: #ff4b86;
+      --primary-soft: #ff8fb2;
+      --text-main: #4a4a4a;
+      --text-muted: #888888;
+      
+      /* Glassmorphism Variables */
+      --glass-bg: rgba(255, 255, 255, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --glass-shadow: 0 8px 32px 0 rgba(255, 75, 134, 0.15);
+      
+      --radius: 24px;
     }
+    
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+    
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(900px 600px at 15% 18%, rgba(255,143,178,.55), transparent 55%),
-        radial-gradient(850px 550px at 85% 24%, rgba(255,75,134,.22), transparent 55%),
-        radial-gradient(700px 500px at 55% 85%, rgba(255,200,220,.55), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: 'Kanit', sans-serif; /* ฟอนต์หลัก */
+      color: var(--text-main);
+      background: linear-gradient(135deg, var(--bg-grad-2) 0%, var(--bg-grad-1) 100%);
+      background-attachment: fixed; /* พื้นหลังไม่ขยับเมื่อเลื่อน */
       overflow-x:hidden;
     }
 
-    /* Floating hearts (subtle) */
+    h1, h2, h3, .brand b, .badge {
+      font-family: 'Mali', cursive; /* ฟอนต์หัวข้อ */
+    }
+
+    /* Floating hearts background */
     .hearts span{
-      position:fixed; bottom:-24px; left:var(--x);
+      position:fixed; bottom:-50px; left:var(--x);
       font-size: var(--s);
       animation: floatUp var(--d) linear infinite;
-      opacity:.85;
-      filter: drop-shadow(0 10px 18px rgba(255,0,90,.12));
-      pointer-events:none;
+      opacity:0;
+      z-index: -1;
     }
     @keyframes floatUp{
       0%{ transform: translateY(0) rotate(0deg); opacity:0; }
-      10%{ opacity:.85; }
-      100%{ transform: translateY(-110vh) rotate(360deg); opacity:0; }
+      20%{ opacity:0.8; }
+      100%{ transform: translateY(-120vh) rotate(360deg); opacity:0; }
     }
 
     .app{
-      width:min(920px, 92vw);
-      margin: 26px auto 70px;
+      width: min(500px, 94vw); /* ปรับความกว้างให้พอดีมือถือ */
+      margin: 20px auto 80px;
     }
 
+    /* --- Navbar --- */
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom: 20px;
+      padding: 0 4px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
-      padding:10px 12px;
-      background: var(--card);
-      border:1px solid var(--stroke);
-      border-radius: 999px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+      display:flex; align-items:center; gap:12px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      backdrop-filter: blur(10px);
     }
     .dot{
-      width:10px;height:10px;border-radius:999px;
-      background: linear-gradient(180deg, var(--pink), var(--pink2));
-      box-shadow: 0 8px 18px rgba(255,75,134,.25);
+      width:12px; height:12px; border-radius:50%;
+      background: linear-gradient(180deg, #ff7eb3, #ff758c);
+      box-shadow: 0 0 10px rgba(255, 117, 140, 0.6);
     }
-    .brand b{ font-size:14px; letter-spacing:.2px; }
-    .brand span{ font-size:12px; color:var(--muted); }
+    .brand b{ font-size:16px; color: var(--primary); }
+    .brand span{ font-size:12px; color:var(--text-muted); }
 
     .btn{
-      border:0;
-      cursor:pointer;
-      border-radius: 16px;
-      padding: 12px 14px;
-      font-weight:700;
-      background: linear-gradient(180deg, rgba(255,75,134,.98), rgba(255,75,134,.80));
-      color:#fff;
-      box-shadow: 0 14px 34px rgba(255,75,134,.18);
-      transition: transform .08s ease;
-      display:inline-flex; align-items:center; gap:10px;
-      justify-content:center;
-      user-select:none;
+      border:none; cursor:pointer;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      transition: all .2s ease;
+      display:inline-flex; align-items:center; gap:8px; justify-content:center;
     }
-    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(90deg, #ff758c, #ff7eb3);
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+    }
+    .btn.primary:active{ transform: scale(0.96); }
+    
     .btn.ghost{
-      background: rgba(255,255,255,.55);
-      color: var(--ink);
-      border:1px solid var(--stroke);
-      box-shadow: 0 12px 28px rgba(0,0,0,.06);
-      backdrop-filter: blur(12px);
-      font-weight:800;
+      background: rgba(255,255,255,0.6);
+      color: var(--text-main);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
+    /* --- Shell (Container) --- */
     .shell{
-      background: var(--card);
-      border:1px solid var(--stroke);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      overflow:hidden;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      overflow: hidden;
+      min-height: 600px;
+      position: relative;
     }
 
-    /* Screens */
+    /* --- Screens --- */
     .screen{
       display:none;
-      padding: 18px 18px 22px;
-      animation: pop .18s ease-out;
+      padding: 24px;
+      animation: fadeIn .4s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .screen.active{ display:block; }
-    @keyframes pop{
-      from{ transform: translateY(6px); opacity:.0; }
-      to{ transform: translateY(0); opacity:1; }
+    
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(10px); }
+      to{ opacity:1; transform: translateY(0); }
     }
 
-    /* Home */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      padding: 18px;
-      border-bottom: 1px solid rgba(255,75,134,.10);
-      background:
-        radial-gradient(900px 250px at 25% 0%, rgba(255,143,178,.28), transparent 65%),
-        radial-gradient(900px 250px at 75% 0%, rgba(255,75,134,.14), transparent 65%);
+    /* --- Home Section --- */
+    .hero{ text-align: center; margin-bottom: 30px; }
+    .hero h1{
+      font-size: 28px; margin: 0 0 8px;
+      background: -webkit-linear-gradient(#ff758c, #ff7eb3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    @media (max-width:760px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-    .heroLeft h1{
-      margin:0 0 10px;
-      font-size: 30px;
-      letter-spacing:.2px;
-    }
-    .heroLeft p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.65;
-      font-size: 14px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      margin-top:12px;
-      padding:8px 10px;
-      border-radius: 999px;
-      border:1px dashed rgba(255,75,134,.28);
-      background: rgba(255,75,134,.07);
-      font-size:12px;
-      color: rgba(31,36,48,.75);
-      width: fit-content;
-    }
+    .hero p{ font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
 
+    .cover-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto 20px;
+    }
     .cover{
-      width:100%;
-      aspect-ratio: 1/1;
-      border-radius: 22px;
+      width:100%; aspect-ratio:1/1;
+      border-radius: 24px;
       object-fit: cover;
-      border:1px solid rgba(255,75,134,.12);
-      box-shadow: 0 18px 45px rgba(0,0,0,.08);
-      background:#fff;
+      box-shadow: 0 20px 50px rgba(255, 75, 134, 0.25);
+      border: 4px solid white;
+      transform: rotate(-2deg);
+      transition: transform 0.3s;
+    }
+    .cover:hover { transform: rotate(0deg) scale(1.02); }
+
+    .cute-tag{
+      display: inline-block;
+      background: rgba(255, 75, 134, 0.1);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
     }
 
-    .menu{
-      padding: 18px;
+    /* --- Menu Grid --- */
+    .menu-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    .menuHeader{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      margin-bottom: 12px;
-      gap:12px;
+    .menu-card{
+      background: rgba(255,255,255,0.7);
+      padding: 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid rgba(255,255,255,0.5);
+      text-align: left;
     }
-    .menuHeader h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    .menuHeader small{ color:var(--muted); }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 14px;
-    }
-    @media (max-width:520px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-    .cardBtn{
-      text-align:left;
-      padding: 16px 16px;
-      border-radius: 22px;
-      border:1px solid rgba(255,75,134,.12);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
-      box-shadow: 0 14px 40px rgba(0,0,0,.06);
-      cursor:pointer;
-      transition: transform .08s ease, box-shadow .12s ease;
-    }
-    .cardBtn:hover{
-      transform: translateY(-1px);
-      box-shadow: 0 18px 54px rgba(0,0,0,.08);
-    }
-    .cardTop{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom: 10px;
+    .menu-card:hover{
+      background: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 75, 134, 0.15);
     }
     .badge{
-      width:44px;height:44px;border-radius: 16px;
-      display:grid; place-items:center;
-      background: linear-gradient(180deg, rgba(255,75,134,.98), rgba(255,143,178,.88));
-      color:#fff;
-      box-shadow: 0 14px 32px rgba(255,75,134,.20);
-      font-size: 20px;
+      font-size: 24px; margin-bottom: 8px; display: block;
     }
-    .chev{
-      width:34px;height:34px;border-radius: 14px;
-      display:grid; place-items:center;
-      background: rgba(255,75,134,.08);
-      border:1px solid rgba(255,75,134,.14);
-      color: rgba(31,36,48,.7);
-      font-weight:900;
-    }
-    .cardBtn h3{ margin:0; font-size: 16px; }
-    .cardBtn p{ margin:6px 0 0; color:var(--muted); font-size: 13px; line-height:1.45; }
+    .menu-card h3{ margin: 0; font-size: 16px; color: var(--text-main); }
+    .menu-card p{ margin: 4px 0 0; font-size: 12px; color: var(--text-muted); }
 
-    /* Inner pages */
-    .pageTop{
+    /* --- Inner Pages --- */
+    .page-header{
       display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
     }
-    .pageTop h2{ margin:0; font-size:18px; }
-    .panel{
-      background: rgba(255,255,255,.60);
-      border:1px solid rgba(255,75,134,.12);
-      border-radius: 22px;
-      padding: 16px 16px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.06);
-    }
-    .text{
-      margin:0;
-      line-height:1.85;
-      color: rgba(31,36,48,.86);
-      font-size: 14px;
+    .page-header h2{ margin:0; font-size: 22px; color: var(--primary); }
+
+    .content-box{
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.6);
+      font-size: 15px;
+      line-height: 1.8;
       white-space: pre-wrap;
+      color: #555;
     }
 
+    /* Gallery */
     .gallery{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 10px;
-      margin-top: 12px;
-    }
-    @media (max-width:620px){
-      .gallery{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
     }
     .gallery img{
-      width:100%;
-      height: 140px;
-      border-radius: 18px;
+      width: 100%; height: 160px;
       object-fit: cover;
-      border:1px solid rgba(255,75,134,.12);
-      box-shadow: 0 14px 38px rgba(0,0,0,.06);
-      background:#fff;
-      cursor:pointer;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      border: 3px solid white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed; inset:0;
-      background: rgba(15,18,25,.62);
-      display:none;
-      align-items:center; justify-content:center;
-      padding: 18px;
-      z-index: 50;
-    }
-    .lightbox.show{ display:flex; }
-    .lightbox img{
-      width:min(860px, 92vw);
-      max-height: 86vh;
-      object-fit:contain;
-      border-radius: 18px;
-      box-shadow: 0 30px 90px rgba(0,0,0,.45);
-      background:#000;
-    }
+    .gallery img:hover{ transform: scale(1.03); z-index: 2; }
 
     /* Timeline */
     .timeline{
-      display:grid;
-      gap:10px;
-      margin-top: 10px;
+      position: relative;
+      padding-left: 20px;
     }
-    .item{
-      display:flex; gap:12px; align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,75,134,.12);
-      background: rgba(255,255,255,.55);
+    .timeline::before {
+        content: '';
+        position: absolute; left: 6px; top: 10px; bottom: 10px;
+        width: 2px; background: rgba(255, 75, 134, 0.2);
+        border-radius: 2px;
     }
-    .date{
-      padding:8px 10px;
-      border-radius: 999px;
-      background: rgba(255,75,134,.08);
-      border:1px dashed rgba(255,75,134,.22);
-      font-size: 12px;
-      white-space: nowrap;
-      color: rgba(31,36,48,.72);
+    .t-item{
+      position: relative;
+      margin-bottom: 24px;
+      padding-left: 20px;
     }
-    .item b{ font-size: 14px; }
-    .item p{ margin:6px 0 0; color:var(--muted); font-size: 13px; line-height:1.5; }
+    .t-dot{
+      position: absolute; left: -21px; top: 0;
+      width: 14px; height: 14px;
+      background: white;
+      border: 3px solid var(--primary-soft);
+      border-radius: 50%;
+    }
+    .t-date{
+      font-size: 12px; color: var(--primary); font-weight: 600;
+      background: rgba(255,255,255,0.6); padding: 2px 8px;
+      border-radius: 10px; display: inline-block; margin-bottom: 4px;
+    }
+    .t-item b{ display: block; font-size: 16px; margin-bottom: 4px; }
+    .t-item p{ margin: 0; font-size: 13px; color: var(--text-muted); }
 
     /* Quiz */
-    .input{
-      width:100%;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,75,134,.18);
-      background: rgba(255,255,255,.70);
-      outline:none;
-      font-size: 14px;
+    .input-box{
+      width: 100%; padding: 14px;
+      border-radius: 16px; border: 1px solid #ddd;
+      background: white; outline: none;
+      font-family: 'Kanit';
+      margin-top: 10px;
+      transition: border 0.2s;
     }
-    .note{ margin-top:10px; color:var(--muted); font-size: 12px; line-height:1.6; }
+    .input-box:focus{ border-color: var(--primary); }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0; z-index:100;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      display:none; justify-content:center; align-items:center;
+      padding: 20px;
+    }
+    .lightbox.show{ display:flex; animation: fadeIn 0.2s; }
+    .lightbox img{
+      max-width: 100%; max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .footer-note{
+        text-align: center; font-size: 12px; color: rgba(0,0,0,0.3); margin-top: 20px;
+    }
   </style>
 </head>
 
@@ -337,278 +300,239 @@
       <div class="brand">
         <div class="dot"></div>
         <div>
-          <b>For You</b><br>
-          <span id="subtitle">💗 หน้าเมนู</span>
+          <b>For You</b>
+          <span id="subtitle" style="display:block; line-height:1;">หน้าเมนู</span>
         </div>
       </div>
-
-      <button class="btn ghost" id="backBtn" onclick="go('home')" style="visibility:hidden;">
-        ← Back
+      <button class="btn ghost" id="backBtn" onclick="go('home')" style="visibility:hidden; font-size:14px;">
+        <span style="font-size:18px">↩</span> กลับ
       </button>
     </div>
 
     <div class="shell">
 
-      <!-- HOME -->
       <section class="screen active" id="home">
         <div class="hero">
-          <div class="heroLeft">
-            <h1>เลือกเมนู 💗</h1>
-            <p>
-              ✅ ถึง (ชื่อแฟน) — เว็บเล็ก ๆ ที่ทำให้คนเดียว<br>
-              วันนี้อยากให้เธอกดดูทีละหน้า แล้วค่อยยิ้มทีหลัง 🙂
-            </p>
-            <div class="pill">✨ UI แบบ Figma • กดเปลี่ยนหน้าได้</div>
+          <h1>เลือกเมนูได้เลย 💗</h1>
+          <p>
+            เว็บเล็กๆ ที่ตั้งใจทำให้ ✅(ชื่อแฟน)<br>
+            อยากให้ลองกดดูทีละหน้าเลยนะ
+          </p>
+          
+          <div class="cover-wrapper">
+             <img class="cover" src="cover.jpg" alt="Our Cover">
           </div>
-
-          <!-- ✅ รูปปก: อัปโหลดไฟล์ชื่อ cover.jpg หรือแก้ชื่อไฟล์ตรงนี้ -->
-          <img class="cover" src="cover.jpg" alt="cover">
+          
+          <div class="cute-tag">✨ ตั้งใจทำให้สุดฝีมือเลย</div>
         </div>
 
-        <div class="menu">
-          <div class="menuHeader">
-            <h2>เลือกเมนู</h2>
-            <small>กดแล้วเข้า “หน้า” ใหม่</small>
-          </div>
-
-          <div class="grid">
-            <div class="cardBtn" onclick="go('letter')">
-              <div class="cardTop">
-                <div class="badge">💌</div>
-                <div class="chev">›</div>
-              </div>
-              <h3>จดหมายถึงเธอ</h3>
-              <p>ข้อความที่อยากบอกแบบจริงจัง (และเขินนิดๆ)</p>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="go('letter')">
+                <span class="badge">💌</span>
+                <h3>จดหมาย</h3>
+                <p>ความในใจถึงเธอ</p>
             </div>
-
-            <div class="cardBtn" onclick="go('memories')">
-              <div class="cardTop">
-                <div class="badge">📸</div>
-                <div class="chev">›</div>
-              </div>
-              <h3>ความทรงจำ</h3>
-              <p>รวมรูปที่เราชอบที่สุด กดรูปเพื่อขยายได้</p>
+            <div class="menu-card" onclick="go('memories')">
+                <span class="badge">📸</span>
+                <h3>รูปของเรา</h3>
+                <p>เก็บไว้ดูตอนคิดถึง</p>
             </div>
-
-            <div class="cardBtn" onclick="go('timeline')">
-              <div class="cardTop">
-                <div class="badge">🍒</div>
-                <div class="chev">›</div>
-              </div>
-              <h3>ไทม์ไลน์ของเรา</h3>
-              <p>วันสำคัญเล็ก ๆ ที่ทำให้รู้ว่ารักมากขึ้น</p>
+            <div class="menu-card" onclick="go('timeline')">
+                <span class="badge">🍒</span>
+                <h3>ไทม์ไลน์</h3>
+                <p>การเดินทางของเรา</p>
             </div>
-
-            <div class="cardBtn" onclick="go('quiz')">
-              <div class="cardTop">
-                <div class="badge">🧸</div>
-                <div class="chev">›</div>
-              </div>
-              <h3>คำถามน่ารัก</h3>
-              <p>ตอบถูกมีเอฟเฟกต์หัวใจรัว ๆ 💗</p>
+            <div class="menu-card" onclick="go('quiz')">
+                <span class="badge">🧸</span>
+                <h3>คำถาม</h3>
+                <p>ลองทายใจกันหน่อย</p>
             </div>
-          </div>
-
-          <div class="note">Made with ❤️ by ✅(ชื่อเรา)</div>
         </div>
+        
+        <div class="footer-note">Made with ❤️ by ✅(ชื่อเรา)</div>
       </section>
 
-      <!-- LETTER -->
       <section class="screen" id="letter">
-        <div class="pageTop">
-          <h2>💌 จดหมาย</h2>
-          <button class="btn" onclick="burst()">ส่งหัวใจ</button>
+        <div class="page-header">
+          <h2>💌 ถึงเธอ...</h2>
+          <button class="btn primary" onclick="burst()">ส่งหัวใจ</button>
         </div>
+        <div class="content-box" id="letterText">
+ถึง ✅(ชื่อแฟน)
 
-        <div class="panel">
-          <p class="text" id="letterText">ถึง ✅(ชื่อแฟน)
+ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ ในชีวิตนะ
+ไม่รู้จะพูดอะไรนอกจากคำว่า...
+"รักเธอมากกว่าที่พูดได้" 💗
 
-✅(พิมพ์จดหมายยาว ๆ ได้เลย)
-ขอบคุณที่อยู่ข้าง ๆ กันเสมอ
-วันนี้อยากให้รู้ว่า…
-“รักเธอมากกว่าที่พูดได้” 💗
-
-Will you be my Valentine? 💘</p>
+อยู่ด้วยกันแบบนี้ไปนานๆ นะ
+Happy Valentine's Day! 💘
         </div>
-        <div class="note">Tip: แก้ข้อความในส่วน id="letterText" ได้เลย</div>
+        <div class="footer-note">อ่านจบแล้วยิ้มด้วยนะ :)</div>
       </section>
 
-      <!-- MEMORIES -->
       <section class="screen" id="memories">
-        <div class="pageTop">
+        <div class="page-header">
           <h2>📸 ความทรงจำ</h2>
-          <button class="btn" onclick="burst()">หัวใจรัว</button>
+          <button class="btn primary" onclick="burst()">รักเลย</button>
         </div>
-
-        <div class="panel">
-          <div class="note" style="margin-top:0">
-            ✅ อัปโหลดรูปชื่อ m1.jpg, m2.jpg, m3.jpg… หรือแก้ชื่อไฟล์ในโค้ด
-          </div>
-
-          <div class="gallery">
-            <img src="m1.jpg" alt="m1" onclick="openLightbox(this.src)">
-            <img src="m2.jpg" alt="m2" onclick="openLightbox(this.src)">
-            <img src="m3.jpg" alt="m3" onclick="openLightbox(this.src)">
-            <img src="m4.jpg" alt="m4" onclick="openLightbox(this.src)">
-            <img src="m5.jpg" alt="m5" onclick="openLightbox(this.src)">
-            <img src="m6.jpg" alt="m6" onclick="openLightbox(this.src)">
-          </div>
+        <div class="gallery">
+            <img src="m1.jpg" onclick="openLightbox(this.src)">
+            <img src="m2.jpg" onclick="openLightbox(this.src)">
+            <img src="m3.jpg" onclick="openLightbox(this.src)">
+            <img src="m4.jpg" onclick="openLightbox(this.src)">
         </div>
-
-        <div class="note">กดรูปเพื่อขยายเต็มจอ • แตะพื้นที่มืดเพื่อปิด</div>
+        <div class="footer-note">แตะที่รูปเพื่อดูรูปใหญ่</div>
       </section>
 
-      <!-- TIMELINE -->
       <section class="screen" id="timeline">
-        <div class="pageTop">
-          <h2>🍒 ไทม์ไลน์</h2>
-          <button class="btn" onclick="burst()">หัวใจ</button>
+        <div class="page-header">
+          <h2>🍒 เส้นทางของเรา</h2>
+          <button class="btn primary" onclick="burst()">เย้ๆ</button>
+        </div>
+        
+        <div style="background:rgba(255,255,255,0.4); border-radius:16px; padding:20px; margin-bottom:15px; text-align:center;">
+             <span style="font-size:40px;">📅</span>
+             <div id="sinceText" style="margin-top:10px; font-size:16px; color:#ff4b86; font-weight:600;"></div>
         </div>
 
-        <div class="panel">
-          <div class="note" style="margin-top:0">
-            ✅ แก้วันเริ่มคบในสคริปต์ (const start = "YYYY-MM-DD") และแก้รายการ timeline ได้
-          </div>
-
-          <div class="timeline" id="timelineList"></div>
-
-          <div class="note" id="sinceText"></div>
-        </div>
+        <div class="timeline" id="timelineList">
+            </div>
       </section>
 
-      <!-- QUIZ -->
       <section class="screen" id="quiz">
-        <div class="pageTop">
-          <h2>🧸 คำถามน่ารัก</h2>
-          <button class="btn" onclick="burst()">ให้กำลังใจ</button>
+        <div class="page-header">
+          <h2>🧸 ทายใจกัน</h2>
         </div>
-
-        <div class="panel">
-          <p class="text" style="margin-bottom:10px">✅ คำถาม: วันที่เราไปเดทครั้งแรกคือวันไหน?</p>
-          <input class="input" id="ans" placeholder="พิมพ์คำตอบ… เช่น 14 กุมภา">
-          <button class="btn" style="width:100%; margin-top:10px" onclick="checkAns()">
-            ส่งคำตอบ 💗
-          </button>
-          <div class="note" id="quizResult"></div>
-          <div class="note">✅ ตั้งคำตอบที่ถูกในโค้ด: const correct = "..."</div>
+        <div class="content-box" style="text-align:center;">
+            <p style="font-size:18px; font-weight:600; color:var(--text-main); margin-bottom:20px;">
+                ✅ คำถาม: วันที่เราเจอกันครั้งแรก คือวันอะไร?
+            </p>
+            <input class="input-box" id="ans" placeholder="พิมพ์คำตอบที่นี่..." style="text-align:center;">
+            
+            <button class="btn primary" style="width:100%; margin-top:15px;" onclick="checkAns()">
+                ส่งคำตอบ 💗
+            </button>
+            
+            <div id="quizResult" style="margin-top:20px; height:20px; font-weight:600;"></div>
         </div>
+        <div class="footer-note">ตอบถูกมีเซอร์ไพรส์นะ</div>
       </section>
 
     </div>
   </div>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightboxImg" alt="preview">
+    <img id="lightboxImg" src="">
   </div>
 
   <script>
-    // -------- Hearts
-    const hearts = document.querySelector(".hearts");
+    // --- Config & Data ---
+    // ✅ 1. ตั้งวันเริ่มคบ (YYYY-MM-DD)
+    const startDate = new Date("2024-02-14");
+    
+    // ✅ 2. ตั้งคำตอบ Quiz
+    const correctAns = "14 กุมภา";
+
+    // ✅ 3. ข้อมูล Timeline
+    const timelineData = [
+      { date: "2024-02-14", title: "วันแรกที่เป็นแฟน", desc: "เขินมากแต่ก็ดีใจมาก 💗" },
+      { date: "2024-03-20", title: "เดทแรก", desc: "ไปกินข้าวร้านโปรดของเธอ" },
+      { date: "2024-12-31", title: "เคาท์ดาวน์", desc: "ข้ามปีไปด้วยกันนะ" },
+      { date: "2025-02-14", title: "Today", desc: "รักเธอเหมือนเดิม เพิ่มเติมคือเว็บนี้" },
+    ];
+
+    // --- Logic ---
+    // Hearts Animation
+    const heartsContainer = document.querySelector(".hearts");
     function spawnHeart(){
-      const s = document.createElement("span");
-      const heart = ["💗","💖","💘","💕","💞","🌹"][Math.floor(Math.random()*6)];
-      s.textContent = heart;
-      s.style.setProperty("--x", Math.random()*100 + "vw");
-      s.style.setProperty("--s", (16 + Math.random()*24) + "px");
-      s.style.setProperty("--d", (4 + Math.random()*6) + "s");
-      hearts.appendChild(s);
-      setTimeout(()=>s.remove(), 11000);
+      const h = document.createElement("span");
+      h.textContent = ["💗","💖","💘","🌹","✨"][Math.floor(Math.random()*5)];
+      h.style.setProperty("--x", Math.random()*100 + "vw");
+      h.style.setProperty("--s", (10 + Math.random()*20) + "px");
+      h.style.setProperty("--d", (6 + Math.random()*4) + "s");
+      heartsContainer.appendChild(h);
+      setTimeout(()=> h.remove(), 10000);
     }
-    setInterval(spawnHeart, 420);
+    setInterval(spawnHeart, 600); // Heart Spawn Rate
+
     function burst(){
-      for(let i=0;i<26;i++) setTimeout(spawnHeart, i*45);
+      for(let i=0; i<30; i++) setTimeout(spawnHeart, i*30);
     }
 
-    // -------- Navigation (no scroll)
+    // Navigation
     const screens = ["home","letter","memories","timeline","quiz"];
-    const subtitle = document.getElementById("subtitle");
-    const backBtn = document.getElementById("backBtn");
-
     function go(id){
       screens.forEach(s => document.getElementById(s).classList.remove("active"));
       document.getElementById(id).classList.add("active");
-
-      // UI state
+      window.scrollTo({top:0, behavior:"smooth"});
+      
+      const backBtn = document.getElementById("backBtn");
+      const sub = document.getElementById("subtitle");
+      
       if(id === "home"){
         backBtn.style.visibility = "hidden";
-        subtitle.textContent = "💗 หน้าเมนู";
-      }else{
+        sub.textContent = "หน้าเมนู";
+      } else {
         backBtn.style.visibility = "visible";
-        const map = {letter:"💌 จดหมาย", memories:"📸 ความทรงจำ", timeline:"🍒 ไทม์ไลน์", quiz:"🧸 คำถาม"};
-        subtitle.textContent = map[id] || "💗";
+        const map = {letter:"จดหมาย", memories:"อัลบั้ม", timeline:"ไทม์ไลน์", quiz:"คำถาม"};
+        sub.textContent = map[id];
+        burst();
       }
-      burst();
-      // top
-      window.scrollTo({top:0, behavior:"smooth"});
     }
 
-    // -------- Lightbox
-    const lb = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lightboxImg");
-    function openLightbox(src){
-      lbImg.src = src;
-      lb.classList.add("show");
-    }
-    function closeLightbox(){
-      lb.classList.remove("show");
-      lbImg.src = "";
-    }
-
-    // -------- Timeline + Since
-    // ✅ ตั้งวันเริ่มคบ
-    const start = new Date("2024-02-14");
-
-    // ✅ แก้รายการไทม์ไลน์ตรงนี้
-    const timelineData = [
-      {date:"2024-02-14", title:"เริ่มต้นของเรา", desc:"วันแรกที่เราตกลงเป็นแฟนกัน 💗"},
-      {date:"2024-03-01", title:"เดทที่จำได้", desc:"มื้อที่อร่อยที่สุด เพราะกินกับเธอ"},
-      {date:"2024-06-10", title:"ทริปแรก", desc:"เหนื่อยแต่สนุกมาก ๆ"},
-      {date:"2025-02-14", title:"Valentine", desc:"ปีนี้มีเว็บให้เธอคนเดียว 💘"},
-    ];
-
+    // Timeline Rendering
     function renderTimeline(){
-      const el = document.getElementById("timelineList");
-      el.innerHTML = timelineData.map(it => `
-        <div class="item">
-          <div class="date">${fmt(it.date)}</div>
-          <div>
-            <b>${escapeHtml(it.title)}</b>
-            <p>${escapeHtml(it.desc)}</p>
-          </div>
+      const list = document.getElementById("timelineList");
+      list.innerHTML = timelineData.map(item => `
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-date">${fmtDate(item.date)}</div>
+          <b>${item.title}</b>
+          <p>${item.desc}</p>
         </div>
       `).join("");
 
-      const days = Math.floor((new Date() - start) / (1000*60*60*24));
-      document.getElementById("sinceText").innerHTML =
-        `เราอยู่ด้วยกันมาแล้ว <b>${days.toLocaleString()}</b> วัน ✨`;
+      // Calculate Days
+      const diff = Math.floor((new Date() - startDate) / (1000*60*60*24));
+      document.getElementById("sinceText").innerHTML = `อยู่ด้วยกันมา <b>${diff}</b> วันแล้วนะ`;
     }
-    function fmt(d){
-      const x = new Date(d);
-      const th = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
-      return `${x.getDate()} ${th[x.getMonth()]} ${x.getFullYear()}`;
-    }
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[m]));
+
+    function fmtDate(dStr){
+      const d = new Date(dStr);
+      const m = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+      return `${d.getDate()} ${m[d.getMonth()]} ${String(d.getFullYear()).slice(2)}`;
     }
     renderTimeline();
 
-    // -------- Quiz
+    // Quiz Logic
     function checkAns(){
-      // ✅ ตั้งคำตอบที่ถูก
-      const correct = "14 กุมภา";
-      const v = document.getElementById("ans").value.trim();
-      const out = document.getElementById("quizResult");
-      if(!v){ out.textContent = "พิมพ์ก่อนน้า 😆"; return; }
-      if(v.toLowerCase() === correct.toLowerCase()){
-        out.innerHTML = "ถูกต้องงงง 💘 เก่งมาก! <b>รักที่สุด</b>";
-        for(let i=0;i<40;i++) setTimeout(spawnHeart, i*35);
-      }else{
-        out.textContent = "ยังไม่ใช่น้า ลองใหม่อีกที 🥺";
+      const val = document.getElementById("ans").value.trim();
+      const res = document.getElementById("quizResult");
+      
+      if(!val) return;
+      
+      if(val.toLowerCase().includes(correctAns.toLowerCase()) || val === correctAns){
+        res.style.color = "#4CAF50";
+        res.innerHTML = "ถูกต้องนะคร้าบบบ! 💖 เก่งมาก";
+        burst();
+        setTimeout(burst, 500);
+      } else {
+        res.style.color = "#ff4b86";
+        res.innerHTML = "ผิดน้าาา ลองใหม่อีกที 🥺";
       }
     }
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lightboxImg");
+    function openLightbox(src){
+        lbImg.src = src;
+        lb.classList.add("show");
+    }
+    function closeLightbox(){
+        lb.classList.remove("show");
+    }
+
   </script>
 </body>
 </html>
