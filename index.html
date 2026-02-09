@@ -3,88 +3,244 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Happy Valentine 💘</title>
+  <title>เลือกเมนู 💗</title>
   <style>
+    :root{
+      --pink:#ff4b86;
+      --pink2:#ff8fb2;
+      --card:#ff5b92;
+      --text:#2a2a2a;
+    }
+    *{box-sizing:border-box}
     body{
-      margin:0; min-height:100vh; display:grid; place-items:center;
+      margin:0;
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at 20% 20%, #ffe1ec, #fff);
-      overflow:hidden;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,143,178,.55), transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(255,75,134,.35), transparent 50%),
+        linear-gradient(180deg, #fff, #ffe8f1);
+      min-height:100vh;
     }
-    .card{
-      width:min(520px, 92vw);
-      background: rgba(255,255,255,.75);
-      border:1px solid rgba(255,0,90,.15);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 28px 24px;
-      box-shadow: 0 20px 60px rgba(255,0,90,.12);
+    .wrap{
+      width:min(760px, 92vw);
+      margin: 0 auto;
+      padding: 26px 0 60px;
+    }
+    .hero{
       text-align:center;
-      position:relative;
+      padding: 18px 0 10px;
     }
-    h1{ margin:0 0 10px; font-size: 28px; }
-    p{ margin:10px 0; line-height:1.65; }
-    .pill{
-      display:inline-block; padding:10px 14px; border-radius:999px;
-      background:#ff3b7a; color:#fff; font-weight:700; border:none;
-      cursor:pointer; margin-top:14px;
-      box-shadow: 0 10px 25px rgba(255,59,122,.25);
+    .avatar{
+      width:120px;height:120px;border-radius:999px;
+      object-fit:cover; display:block; margin:0 auto 12px;
+      border: 2px solid rgba(255,75,134,.25);
+      box-shadow: 0 18px 45px rgba(255,0,90,.12);
+      background:#fff;
     }
-    .pill:active{ transform: translateY(1px); }
-    .small{ font-size:13px; opacity:.75; margin-top:16px; }
+    h1{ margin:0; font-size:28px; letter-spacing:.2px; }
+    .sub{ margin:10px 0 0; opacity:.8; line-height:1.6; }
+
+    .panel{
+      margin-top: 20px;
+      background: rgba(255,255,255,.7);
+      border:1px solid rgba(255,75,134,.14);
+      border-radius: 26px;
+      padding: 22px 18px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 55px rgba(255,0,90,.08);
+    }
+
+    .menu-title{
+      text-align:center;
+      font-weight:800;
+      margin: 0 0 14px;
+      font-size:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+    .btn{
+      border:0;
+      border-radius: 18px;
+      padding: 16px 14px;
+      background: linear-gradient(180deg, rgba(255,75,134,.95), rgba(255,75,134,.78));
+      color:#fff;
+      text-align:center;
+      cursor:pointer;
+      box-shadow: 0 12px 30px rgba(255,75,134,.18);
+      transition: transform .08s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .icon{ font-size:24px; display:block; margin-bottom:6px; }
+    .btitle{ font-weight:800; margin:0; }
+    .bsub{ margin:6px 0 0; font-size:13px; opacity:.9; line-height:1.35; }
+
+    .section{
+      margin-top: 18px;
+      background: rgba(255,255,255,.75);
+      border:1px solid rgba(255,75,134,.14);
+      border-radius: 22px;
+      padding: 18px 16px;
+      box-shadow: 0 18px 55px rgba(255,0,90,.06);
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius: 999px;
+      background: rgba(255,75,134,.10);
+      border:1px dashed rgba(255,75,134,.25);
+      font-size:12px;
+      opacity:.9;
+      margin-bottom:10px;
+    }
+    .p{ margin: 8px 0; line-height:1.75; }
+
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+    .gallery img{
+      width:100%; height:110px;
+      border-radius: 14px;
+      object-fit:cover;
+      border:1px solid rgba(255,75,134,.12);
+      box-shadow: 0 10px 25px rgba(0,0,0,.06);
+      background:#fff;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:16px;
+      opacity:.75;
+      font-size:12px;
+    }
+
+    /* หัวใจลอย */
     .hearts span{
       position:fixed; bottom:-20px; left:var(--x);
       font-size: var(--s);
       animation: floatUp var(--d) linear infinite;
       filter: drop-shadow(0 6px 10px rgba(255,0,90,.15));
       opacity:.9;
+      pointer-events:none;
     }
     @keyframes floatUp{
       0%{ transform: translateY(0) rotate(0deg); opacity:0; }
       10%{ opacity:.9; }
       100%{ transform: translateY(-110vh) rotate(360deg); opacity:0; }
     }
-    .secret{
-      display:none; margin-top:14px;
-      padding:14px 14px; border-radius:16px;
-      background: rgba(255,59,122,.08);
-      border:1px dashed rgba(255,59,122,.25);
-    }
-    .photo{
-      width:120px; height:120px; border-radius:999px;
-      margin: 0 auto 14px;
-      background: linear-gradient(135deg, #ffd1e1, #fff);
-      display:grid; place-items:center;
-      border: 1px solid rgba(255,59,122,.18);
-      font-size:40px;
-    }
   </style>
 </head>
+
 <body>
   <div class="hearts" aria-hidden="true"></div>
 
-  <main class="card">
-    <div class="photo">💗</div>
-    <h1>Happy Valentine, ✅(ชื่อแฟน)</h1>
-    <p>
-      ✅(ข้อความสั้นๆ เช่น “ขอบคุณที่อยู่ด้วยกันเสมอ วันนี้เลยทำเว็บเล็กๆ ให้”)
-      <br/>รักเธอนะ 🥰
-    </p>
-
-    <button class="pill" id="btn">กดรับเซอร์ไพรส์ 💌</button>
-
-    <div class="secret" id="secret">
-      <p style="margin:0">
-        ✅(ใส่ข้อความยาวขึ้น เช่น “ปีนี้ขอให้เราได้ไปเดทด้วยกันบ่อยๆ…”)<br/>
-        <b>Will you be my Valentine? 💘</b>
-      </p>
-      <p class="small">คำใบ้: ถ่ายสกรีนแล้วส่งกลับมาด้วยนะ 😆</p>
+  <div class="wrap">
+    <div class="hero">
+      <!-- ✅ เปลี่ยนเป็นชื่อไฟล์รูปคู่ของคุณ เช่น couple.jpg -->
+      <img class="avatar" src="couple.jpg" alt="รูปคู่ของเรา">
+      <h1>เลือกเมนู 💗</h1>
+      <p class="sub">✅ ถึง (ชื่อแฟน) — เว็บเล็ก ๆ สำหรับเธอคนเดียว</p>
     </div>
 
-    <p class="small">Made with ❤️ by ✅(ชื่อเรา)</p>
-  </main>
+    <div class="panel">
+      <div class="menu-title">เลือกเมนู</div>
+
+      <div class="grid">
+        <button class="btn" onclick="go('sec-date')">
+          <span class="icon">🍒</span>
+          <p class="btitle">เราคบกันมานาน</p>
+          <p class="bsub">เท่าไหร่แล้วนะ</p>
+        </button>
+
+        <button class="btn" onclick="go('sec-letter')">
+          <span class="icon">💌</span>
+          <p class="btitle">จดหมาย</p>
+          <p class="bsub">ถึงคนที่น่ารัก</p>
+        </button>
+
+        <button class="btn" onclick="go('sec-quiz')">
+          <span class="icon">🧸</span>
+          <p class="btitle">เรารู้ใจ</p>
+          <p class="bsub">กันมากแค่ไหน</p>
+        </button>
+
+        <button class="btn" onclick="go('sec-mem')">
+          <span class="icon">📸</span>
+          <p class="btitle">ความทรงจำ</p>
+          <p class="bsub">รูปที่ชอบที่สุด</p>
+        </button>
+      </div>
+
+      <div class="footer">Made with ❤️ by ✅(ชื่อเรา)</div>
+    </div>
+
+    <!-- SECTION: ระยะเวลาคบ -->
+    <section class="section" id="sec-date">
+      <span class="tag">🍒 เราคบกันมานานแค่ไหน</span>
+      <h2>เราอยู่ด้วยกันมา</h2>
+      <p class="p" id="sinceText">กำลังคำนวณ…</p>
+      <p class="p" style="opacity:.8;font-size:13px">
+        ✅ แก้วันเริ่มคบได้ในโค้ด (ดูบรรทัด const start = ...)
+      </p>
+    </section>
+
+    <!-- SECTION: จดหมาย -->
+    <section class="section" id="sec-letter">
+      <span class="tag">💌 จดหมายถึงเธอ</span>
+      <h2>ถึง ✅(ชื่อแฟน)</h2>
+      <p class="p">
+        ✅(พิมพ์จดหมายหวาน ๆ / กวน ๆ ได้เลย)
+        <br>ขอบคุณที่อยู่ข้าง ๆ กันเสมอ
+        <br><b>Will you be my Valentine? 💘</b>
+      </p>
+    </section>
+
+    <!-- SECTION: ควิซ (ง่าย ๆ) -->
+    <section class="section" id="sec-quiz">
+      <span class="tag">🧸 เรารู้ใจกันแค่ไหน</span>
+      <h2>คำถาม 1 ข้อ</h2>
+      <p class="p">✅ วันที่เราไปเดทครั้งแรก (หรือวันสำคัญของเรา) คือวันไหน?</p>
+      <input id="ans" placeholder="พิมพ์คำตอบ…" style="
+        width:100%; padding:12px 14px; border-radius:14px;
+        border:1px solid rgba(255,75,134,.18); outline:none;
+        font-size:14px; background:#fff;
+      ">
+      <button class="btn" style="margin-top:10px;width:100%;" onclick="checkAns()">
+        ส่งคำตอบ 💗
+      </button>
+      <p class="p" id="result" style="margin-top:10px;"></p>
+      <p class="p" style="opacity:.75;font-size:12px;">
+        ✅ แก้ “คำตอบที่ถูก” ได้ในโค้ด (const correct = "...")
+      </p>
+    </section>
+
+    <!-- SECTION: ความทรงจำ -->
+    <section class="section" id="sec-mem">
+      <span class="tag">📸 ความทรงจำ</span>
+      <h2>อัลบั้มรูปของเรา</h2>
+      <p class="p">✅ ใส่รูปเพิ่มได้ โดยอัปโหลดไฟล์แล้วแก้ชื่อในโค้ด</p>
+
+      <div class="gallery">
+        <img src="m1.jpg" alt="memory 1">
+        <img src="m2.jpg" alt="memory 2">
+        <img src="m3.jpg" alt="memory 3">
+      </div>
+    </section>
+  </div>
 
   <script>
+    // หัวใจลอย
     const hearts = document.querySelector(".hearts");
     function spawnHeart(){
       const s = document.createElement("span");
@@ -98,11 +254,44 @@
     }
     setInterval(spawnHeart, 280);
 
-    document.getElementById("btn").addEventListener("click", ()=>{
-      document.getElementById("secret").style.display = "block";
-      for(let i=0;i<20;i++) setTimeout(spawnHeart, i*60);
-      document.getElementById("btn").textContent = "อ่านแล้วใช่มั้ย 😳💘";
-    });
+    // ไปยัง section
+    function go(id){
+      document.getElementById(id).scrollIntoView({behavior:"smooth", block:"start"});
+      for(let i=0;i<10;i++) setTimeout(spawnHeart, i*60);
+    }
+
+    // ✅ ตั้งวันเริ่มคบที่นี่ (รูปแบบ YYYY-MM-DD)
+    const start = new Date("2024-02-14");
+    function calcSince(){
+      const now = new Date();
+      const diff = now - start;
+      const days = Math.floor(diff / (1000*60*60*24));
+      const years = Math.floor(days/365);
+      const months = Math.floor((days%365)/30);
+      const remain = days - years*365 - months*30;
+      document.getElementById("sinceText").innerHTML =
+        `<b>${days.toLocaleString()}</b> วัน<br>` +
+        `≈ ${years} ปี ${months} เดือน ${remain} วัน (ประมาณ)`;
+    }
+    calcSince();
+
+    // ควิซ
+    function checkAns(){
+      // ✅ ตั้งคำตอบที่ถูก (พิมพ์ให้ตรงกับที่แฟนจะตอบ)
+      const correct = "14 กุมภา";
+      const v = document.getElementById("ans").value.trim();
+      const el = document.getElementById("result");
+      if(!v){
+        el.textContent = "พิมพ์ก่อนน้า 😆";
+        return;
+      }
+      if(v.toLowerCase() === correct.toLowerCase()){
+        el.innerHTML = "ถูกต้องงงง 💘 เก่งมาก! <b>รักที่สุด</b>";
+        for(let i=0;i<25;i++) setTimeout(spawnHeart, i*40);
+      }else{
+        el.textContent = "ยังไม่ใช่น้า ลองใหม่อีกที 🥺";
+      }
+    }
   </script>
 </body>
 </html>
